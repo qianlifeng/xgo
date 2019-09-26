@@ -310,6 +310,7 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	}
 	if usesModules {
 		args = append(args, []string{"-e", "GO111MODULE=on"}...)
+		log.Printf("Use GOPROXY=https://goproxy.cn")
 		args = append(args, []string{"-e", "GOPROXY=https://goproxy.cn"}...)
 		args = append(args, []string{"-v", os.Getenv("GOPATH") + ":/go"}...)
 
