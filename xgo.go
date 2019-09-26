@@ -289,6 +289,7 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	}
 	// Assemble and run the cross compilation command
 	fmt.Printf("Cross compiling %s...\n", config.Repository)
+	fmt.Printf("Use GOPROXY=https://goproxy.cn")
 
 	args := []string{
 		"run", "--rm",
@@ -298,6 +299,7 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 		"-e", "REPO_BRANCH=" + config.Branch,
 		"-e", "PACK=" + config.Package,
 		"-e", "DEPS=" + config.Dependencies,
+		"-e", "GOPROXY=https://goproxy.cn",
 		"-e", "ARGS=" + config.Arguments,
 		"-e", "OUT=" + config.Prefix,
 		"-e", fmt.Sprintf("FLAG_V=%v", flags.Verbose),
@@ -310,8 +312,6 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	}
 	if usesModules {
 		args = append(args, []string{"-e", "GO111MODULE=on"}...)
-		log.Printf("Use GOPROXY=https://goproxy.cn")
-		args = append(args, []string{"-e", "GOPROXY=https://goproxy.cn"}...)
 		args = append(args, []string{"-v", os.Getenv("GOPATH") + ":/go"}...)
 
 		// Map this repository to the /source folder
