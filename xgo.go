@@ -310,6 +310,7 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	}
 	if usesModules {
 		args = append(args, []string{"-e", "GO111MODULE=on"}...)
+		args = append(args, []string{"-e", "GOPROXY=https://goproxy.cn"}...)
 		args = append(args, []string{"-v", os.Getenv("GOPATH") + ":/go"}...)
 
 		// Map this repository to the /source folder
