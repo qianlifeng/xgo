@@ -289,17 +289,22 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	}
 	// Assemble and run the cross compilation command
 	fmt.Printf("Cross compiling %s...\n", config.Repository)
-	fmt.Printf("Use GOPROXY=https://goproxy.cn")
+	fmt.Printf("Use GOPROXY=https://goproxy.cn\n")
+	fmt.Printf("Use GOCACHE=/tmp/xgo-build-cache\n")
+	fmt.Printf("Use GO_MODULE_CACHE=/tmp/xgo-module-cache\n")
 
 	args := []string{
 		"run", "--rm",
 		"-v", folder + ":/build",
 		"-v", depsCache + ":/deps-cache:ro",
+		"-v", "/tmp/xgo-build-cache:/xgo-build-cache",
+		"-v", "/tmp/xgo-module-cache:/go/pkg/mod",
 		"-e", "REPO_REMOTE=" + config.Remote,
 		"-e", "REPO_BRANCH=" + config.Branch,
 		"-e", "PACK=" + config.Package,
 		"-e", "DEPS=" + config.Dependencies,
 		"-e", "GOPROXY=https://goproxy.cn",
+		"-e", "GOCACHE=/xgo-build-cache",
 		"-e", "ARGS=" + config.Arguments,
 		"-e", "OUT=" + config.Prefix,
 		"-e", fmt.Sprintf("FLAG_V=%v", flags.Verbose),
