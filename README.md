@@ -1,7 +1,5 @@
 # xgo - Go CGO cross compiler
 
-[![Build Status](https://cloud.drone.io/api/badges/techknowlogick/xgo/status.svg)](https://cloud.drone.io/techknowlogick/xgo)
-
 Although Go strives to be a cross platform language, cross compilation from one
 platform to another is not as simple as it could be, as you need the Go sources
 bootstrapped to each platform and architecture.
@@ -85,20 +83,18 @@ A handful of flags can be passed to `go build`. The currently supported ones are
 
 As newer versions of the language runtime, libraries and tools get released,
 these will get incorporated into xgo too as extensions layers to the base cross
-compilation image (only Go 1.3 and above will be supported).
+compilation image (only Go 1.13 and above will be supported).
 
 You can select which Go release to work with through the `-go` command line flag
 to xgo and if the specific release was already integrated, it will automatically
 be retrieved and installed.
 
-    $ xgo -go 1.6.1 github.com/project-iris/iris
+    $ xgo -go go-1.13.2 github.com/project-iris/iris
 
 Additionally, a few wildcard release strings are also supported:
 
   - `latest` will use the latest Go release (this is the default)
-  - `1.6.x` will use the latest point release of a specific Go version
-  - `1.6-develop` will use the develop branch of a specific Go version
-  - `develop` will use the develop branch of the entire Go repository
+  - `go-1.13.x` will use the latest point release of a specific Go version
 
 ### Output prefixing
 
